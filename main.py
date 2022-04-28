@@ -4,11 +4,12 @@ from config_parser import Config
 from ui import Window
 from threading import Thread
 from time import sleep
+from copy_file import CopyFile
 
 
-window = Window('Start')
-window.update()
 config = Config()
+window = Window(config_dataclass=config, text='Start')
+window.update()
 
 
 def create_local_folder():
@@ -21,6 +22,8 @@ def copy_file():
             break
         sleep(config.refresh_rate_seconds)
         text = 'Copy files...'
+        copy_file_cl = CopyFile(config=config, window=window)
+        copy_file_cl.copy_files()
         print(text)
         window.set_text(text)
 

@@ -19,6 +19,7 @@ class Config:
         config_pars = configparser.ConfigParser()
         config_pars.add_section('SFTP_settings')
         config_pars.set('SFTP_settings', 'server_host', '')
+        config_pars.set('SFTP_settings', 'server_port', '22')
         config_pars.set('SFTP_settings', 'username', '')
         config_pars.set('SFTP_settings', 'secret', '')
         config_pars.add_section('SERVER_folders')
@@ -38,6 +39,7 @@ class Config:
         config_pars.read(self.__CONFIG_FILE)
 
         self.server_host = config_pars.get('SFTP_settings', 'server_host')
+        self.server_port = config_pars.get('SFTP_settings', 'server_port')
         self.username = config_pars.get('SFTP_settings', 'username')
         self.password = config_pars.get('SFTP_settings', 'secret')
         self.server_folders = [item[1] for item in config_pars.items('SERVER_folders')]

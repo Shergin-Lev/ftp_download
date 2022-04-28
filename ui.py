@@ -24,9 +24,9 @@ class Window:
     def set_text(self, text):
         self.text = text
 
-    def draw_rect(self):
+    def draw_rect(self, y):
         points = [(5, 5),
-                  (self.WINDOW_SIZE[0] - 10, 100)]
+                  (self.WINDOW_SIZE[0] - 10, y)]
         pygame.draw.rect(self.screen, (0, 0, 0,), points, 1)
 
     def draw_settings_text(self):
@@ -34,13 +34,14 @@ class Window:
         y_add = 11
         self.draw_line_text(self.settings_font,
                             (x, y),
-                            f'SERVER: {self.config.server_host}')
+                            f'{"SERVER:":<9}{self.config.server_host:}')
         y += y_add
-        for folder in self.config.server_folders:
+        for folder in enumerate(self.config.server_folders):
             self.draw_line_text(self.settings_font,
                                 (x, y),
-                                f'PATH: {folder}')
+                                f'{"PATH" + str(folder[0] + 1) + ":":<9}{folder[1]}')
             y += y_add
+        self.draw_rect(y)
 
     def draw_line_text(self, font, coords, text):
         font.render_to(self.screen, coords, text)
@@ -60,7 +61,6 @@ class Window:
         #                     (10, 10),
         #                     self.text,
         #                     (0, 0, 0))
-        self.draw_rect()
         self.draw_settings_text()
         pygame.display.flip()
 
