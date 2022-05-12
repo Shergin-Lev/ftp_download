@@ -29,6 +29,9 @@ class Window:
                   (self.WINDOW_SIZE[0] - 10, y)]
         pygame.draw.rect(self.screen, (0, 0, 0,), points, 1)
 
+    def draw_files_list(self, files):
+        pass
+
     def draw_settings_text(self):
         x, y = 10, 10
         y_add = 11
@@ -39,7 +42,9 @@ class Window:
         for folder in enumerate(self.config.server_folders):
             self.draw_line_text(self.settings_font,
                                 (x, y),
-                                f'{"PATH" + str(folder[0] + 1) + ":":<9}{folder[1]}')
+                                f'{"PATH" + str(folder[0] + 1) + ":":<9}'
+                                f'{folder[1]:}'
+                                f'{self.config.server_folder_descriptions[folder[0]]:>25}')
             y += y_add
         self.draw_rect(y)
 
@@ -53,14 +58,7 @@ class Window:
                 pygame.quit()
                 self.STATUS = pygame.get_init()
                 exit()
-
-        # text = self.font.get_rect(self.text)
         self.screen.fill(self.BG_COLOR)
-        # self.font.render_to(self.screen,
-        #                     # text.topleft,
-        #                     (10, 10),
-        #                     self.text,
-        #                     (0, 0, 0))
         self.draw_settings_text()
         pygame.display.flip()
 
